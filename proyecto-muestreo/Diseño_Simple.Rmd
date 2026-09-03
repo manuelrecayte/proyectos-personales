@@ -1,0 +1,108 @@
+---
+title: 'Diseño 1: Muestreo Aleatorio Simple (SI)'
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+## Carga de Datos y Configuración Inicial
+
+En esta sección se inicializan los datos del departamento de Paysandú, se cargan las librerías requeridas y se calculan los parámetros poblacionales fijos para el Diseño Simple.
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(sampling)
+
+load("Paysandú.RData")
+pdu <- pay
+
+pdu$y <- ifelse(pdu$PERAL08 == 1, 1, 0)
+t <- sum(pdu$y)
+N <- nrow(pdu)
+n <- 600
+R <- 2000
+```
+
+## Simulación (Distribución Empírica)
+
+Se ejecutan las $R = 2000$ réplicas del estimador del total de Horvitz-Thompson bajo un diseño de muestreo aleatorio simple sin reemplazo (SI). Al finalizar, se exportan los resultados simulados para su uso en el cálculo de eficiencia de otros diseños.
+
+```{r}
+set.seed(123)
+
+totales_si <- replicate(R, {
+  muestra <- pdu %>% 
+    slice(sample(1:N, size = n, replace = FALSE))
+  
+  total_estimado <- N * mean(muestra$y)
+  return(total_estimado)
+})
+
+sim_resultados <- tibble(totales_si = totales_si)
+
+# Guardamos el vector de resultados para calcular los Deffs en otros qmds
+save(totales_si, file = "sim_si.RData")
+```
+
+## Visualización de la Distribución
+
+A continuación, se presenta la densidad empírica del estimador contrastada con el valor real poblacional.
+
+```{r}
+ggplot(sim_resultados, aes(x = totales_si)) +
+  geom_density(fill = "aquamarine3", alpha = 0.4, color = "darkgreen", linewidth = 1) +
+  geom_vline(xintercept = t, linetype = "dashed", color = "darkred", linewidth = 1.2) +
+  labs(
+    title = "Distribución Empírica del Estimador del Total bajo Diseño SI",
+    subtitle = paste("Basado en", R, "simulaciones de tamaño n =", n),
+    x = "Total Estimado de Asalariados Privados",
+    y = "Densidad"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    axis.title = element_text(face = "bold")
+  )
+```
+
+## Métricas de la Distribución Empírica
+
+Cálculo de la media, varianza empírica y error estándar del diseño SI.
+
+```{r}
+mean_empirica <- mean(totales_si)
+var_empirica  <- var(totales_si)
+se_empirico   <- sd(totales_si)
+
+cat("--- Resultados de la Distribución Empírica (SI) ---\n",
+    "Media de las estimaciones:", mean_empirica, "\n",
+    "Varianza empírica:", var_empirica, "\n",
+    "Error Estándar (SE) empírico:", se_empirico, "\n")
+```
+
+## Intervalos de Confianza
+
+Determinación del intervalo de confianza empírico por percentiles y bajo el supuesto de normalidad asintótica.
+
+```{r}
+alpha <- 0.05
+
+# 1. Intervalo de Confianza Empírico
+ic_empirico_inf <- quantile(totales_si, probs = alpha / 2)
+ic_empirico_sup <- quantile(totales_si, probs = 1 - alpha / 2)
+
+# 2. Intervalo de Confianza Asumiendo Normalidad
+z_val <- qnorm(1 - alpha / 2)
+ic_normal_inf <- mean_empirica - z_val * se_empirico
+ic_normal_sup <- mean_empirica + z_val * se_empirico
+
+# Resultados
+cat("--- Intervalo de Confianza Empírico (SI) ---\n",
+    "IC 95%: [", ic_empirico_inf, ", ", ic_empirico_sup, "]\n\n",
+    "--- Intervalo Asumiendo Normalidad (SI) ---\n",
+    "IC 95%: [", ic_normal_inf, ", ", ic_normal_sup, "]\n\n",
+    "--- Valor Real de la Población (t) ---\n",
+    "t =", t, "\n")
+```
