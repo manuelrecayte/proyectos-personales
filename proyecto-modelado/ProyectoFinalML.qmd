@@ -1,0 +1,189 @@
+---
+title: "ProyectoFinalML"
+format: html
+editor: visual
+---
+
+## Modelos Lineales \| Cangrejitos
+
+```{r}
+data <- read.csv("CrabAgePrediction.csv")
+data
+
+data = data
+data$Sex.det <- ifelse(data$Sex == "I", "I", "D")
+data
+
+data.sin.outliers.weight <- data[order(data$Weight), ]
+data.sin.outliers.weight <- head(data.sin.outliers.weight, -2)
+summary(data)
+matriz_corr <- cor(data[, sapply(data, is.numeric)], use = "pairwise.complete.obs")
+library(corrplot)
+
+```
+
+```{r}
+library(ggplot2)
+boxplot(data$Age ~ data$Sex)
+boxplot(data$Age ~data$Sex.det)
+
+ggplot(data, aes(x = Length, y = Age)) +
+      geom_point() +
+      geom_smooth(method = "lm", se = TRUE)
+
+ggplot(data, aes(x = Diameter, y = Age)) +
+      geom_point() +
+      geom_smooth(method = "lm", se = TRUE)
+
+ggplot(data, aes(x = Height, y = Age)) +
+      geom_point() +
+      geom_smooth(method = "lm", se = TRUE)
+
+ggplot(data, aes(x = Weight, y = Age)) +
+      geom_point() +
+      geom_smooth(method = "lm", se = TRUE)
+ggplot(data.sin.outliers.weight, aes(x = Weight, y = Age)) +
+      geom_point() +
+      geom_smooth(method = "lm", se = TRUE)
+
+ggplot(data, aes(x = Shucked.Weight, y = Age)) +
+      geom_point() +
+      geom_smooth(method = "lm", se = TRUE)
+
+ggplot(data, aes(x = Viscera.Weight, y = Age)) +
+      geom_point() +
+      geom_smooth(method = "lm", se = TRUE)
+
+ggplot(data, aes(x = Shell.Weight, y = Age)) +
+      geom_point() +
+      geom_smooth(method = "lm", se = TRUE)
+
+#para justificar la existencia de multicolinealidad
+corrplot(matriz_corr, method = "circle")
+library(car)
+#vif(lm(Age ~., data =data))
+
+
+#dados resultados de la tabla, resulta conveniente implementar lasso o bridge para la sleccion de variables
+
+```
+
+***SELECCIÓN DE VARIABLES***
+
+```{r}
+library(glmnet)
+X <- model.matrix(Age ~ ., data =data)[, -1]
+y <- data$Age
+lasso <- cv.glmnet(X,y, alpha = 1)
+#extraemos los coeficientes obtenidos 
+coef.lasso <- coef(lasso)
+print(coef.lasso)
+
+```
+
+```{r}
+modelo_todas_las_variables <- lm(Age~., data=data)
+modelo_segun_lasso<- lm(Age~ Diameter + Sex.det + Height + Shucked.Weight + Shell.Weight, data=data)
+
+summary(modelo_todas_las_variables)
+summary(modelo_segun_lasso)
+```
+
+```{r}
+library(skedastic)
+datos_diagnostico <- data.frame(
+  Ajustados = predict(modelo_segun_lasso),
+  Residuos = residuals(modelo_segun_lasso)
+)
+
+ggplot(datos_diagnostico, aes(x = Ajustados, y = Residuos)) +
+  geom_point(color = "blue", alpha = 0.6) +
+  geom_hline(yintercept = 0, size = 1, alpha=0.3) +
+  labs(
+    title = "Diagnóstico de Homocedasticidad: Residuos vs. Valores Ajustados",
+    x = "Valores Predichos (Ajustados)",
+    y = "Residuos (Errores)"
+  ) +
+  theme_minimal()
+
+breusch_pagan(modelo_segun_lasso)
+
+library(sandwich)
+library(lmtest)
+
+# 2. Volver a testear los coeficientes usando la corrección HC3
+coef.HC4 <- coeftest(modelo_segun_lasso, vcov = vcovHC(modelo_segun_lasso, type = "HC4"))
+
+```
+
+***INFERENCIA SOBRE PARAMETROS***
+
+```{r}
+summary(modelo_segun_lasso)
+confint(modelo_segun_lasso)
+```
+
+***DIAGNOSTICO***
+
+***-normalidad***
+
+```{r}
+st = rstudent(modelo_segun_lasso)
+#criterio raiz de n cantidad de obs para los breaks
+hist(rstudent(modelo_segun_lasso), breaks = 62 , main = "Historgrama Normalidad", xlab = "Studentizados") 
+n = nrow(data)
+teo = qnorm(seq(n)/(n + 1))
+qq <- data.frame(teoricos = teo,
+                 empiricos = sort(st))
+ggplot(qq, aes(x = teoricos, y = empiricos)) +
+  geom_point() +
+  xlab('Cuantiles teoricos') +
+  ylab('Cuantiles empiricos') +
+  geom_abline(slope = 1, intercept = 0, col = 2, size = 1.5)
+#tests
+library(tseries)
+shapiro.test(st)
+#tseries::jarque.bera.test(st)
+#ks.test(st, 'pnorm')
+
+#sin datos atipicos
+data2=data
+data2<-data2[-2257,]
+data2<-data2[-749,]
+#View(data2)
+modelo_segun_lasso_sinout<- lm(Age~ Diameter + Sex.det + Height + Shucked.Weight + Shell.Weight, data=data2)
+n1 = nrow(data2)
+teo1 = qnorm(seq(n)/(n + 1))
+qq1 <- data.frame(teoricos = teo1,
+                 empiricos = sort(st))
+ggplot(qq1, aes(x = teo1, y = empiricos)) +
+  geom_point() +
+  xlab('Cuantiles teoricos') +
+  ylab('Cuantiles empiricos') +
+  geom_abline(slope = 1, intercept = 0, col = 2, size = 1.5)
+#sacando datos atipicos no mejora el supuesto de normalidad pero, como tenemos muchos datos por el teo. del limite central obviamos supuesto
+
+```
+
+***-linealidad***
+
+```{r}
+library(car)
+crPlots(modelo_segun_lasso_sinout)
+
+```
+
+```{r}
+X_test <- model.matrix(Age ~ ., data = data)[, -1]
+predicciones <- predict(modelo_segun_lasso, newx = X_test)
+head(predicciones)
+mean((data$Age-predicciones)^2)
+
+predichos_vs_observados <- data.frame(Real = data$Age, Predicho= predicciones)
+ggplot(predichos_vs_observados, aes(x=Real, y=Predicho)) +
+  geom_point()+
+  geom_abline(intercept = 0, slope = 1, linetype="dashed")+
+  geom_smooth(method="loess", color="blue", se=FALSE, alpha=0.5)+
+  theme_minimal()+
+  coord_equal()
+```
