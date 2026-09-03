@@ -1,0 +1,153 @@
+---
+title: 'Diseño 3: Muestreo Estratificado Simple (STSI)'
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+## Carga de Datos y Configuración Inicial
+
+En esta sección se inicializan los datos del departamento de Paysandú, se cargan las librerías requeridas y se calculan los parámetros de estratificación utilizando la variable de Actividad Económica.
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(sampling)
+
+load("Paysandú.RData")
+pdu <- pay
+
+pdu$y <- ifelse(pdu$PERAL08 == 1, 1, 0)
+t <- sum(pdu$y)
+N <- nrow(pdu)
+n_total <- 600
+R <- 2000
+
+# Identificación automática y preparación de la variable de estratificación
+nombre_real_actividad <- colnames(pdu)[grep("pobpcoac", colnames(pdu), ignore.case = TRUE)][1]
+
+pdu <- pdu %>% 
+  filter(!is.na(.[[nombre_real_actividad]]), 
+         !.[[nombre_real_actividad]] %in% c(8888, 9898))
+
+
+pdu$estrato <- as.factor(pdu[[nombre_real_actividad]])
+```
+
+## Configuración de la Muestra por Estrato (Asignación Proporcional)
+
+Cálculo del tamaño de muestra correspondiente a cada estrato manteniendo la proporcionalidad con respecto a la población total.
+
+```{r}
+pdu$estrato <- droplevels(pdu$estrato)
+
+# 2. Calcular la asignación proporcional
+asignacion <- pdu %>%
+  group_by(estrato) %>%
+  summarise(N_h = n(), .groups = 'drop') %>%
+  mutate(n_h = round(n_total * (N_h / sum(N_h))))
+
+# 3. Ajuste por redondeo
+if(sum(asignacion$n_h) != n_total) {
+  diff <- n_total - sum(asignacion$n_h)
+  idx <- which.max(asignacion$n_h)
+  asignacion$n_h[idx] <- asignacion$n_h[idx] + diff
+}
+
+pdu_config <- pdu %>%
+  left_join(asignacion, by = "estrato") %>%
+  mutate(Prob = n_h / N_h) 
+```
+
+## Simulación (Distribución Empírica)
+
+Se ejecuta la simulación iterativa a lo largo de las $R = 2000$ réplicas para evaluar el comportamiento del estimador bajo el Diseño Estratificado (ME).
+
+```{r}
+totales_estrat <- numeric(R)
+
+pdu_lista <- split(pdu_config, pdu_config$estrato)
+
+tamanos_lista <- asignacion$n_h
+names(tamanos_lista) <- asignacion$estrato
+
+set.seed(123) 
+for (i in 1:R) {
+  muestras_estratos <- lapply(names(pdu_lista), function(nom) {
+    df_estrato <- pdu_lista[[nom]]
+    n_a_tomar <- tamanos_lista[nom]
+    
+    df_estrato[sample(nrow(df_estrato), size = n_a_tomar, replace = FALSE), ]
+  })
+  
+  datos_s_estrat <- do.call(rbind, muestras_estratos)
+  
+  # Estimador de Horvitz-Thompson del total
+  totales_estrat[i] <- sum(datos_s_estrat$y / datos_s_estrat$Prob)
+}
+```
+
+## Análisis de Eficiencia (Deff)
+
+Evaluación del impacto del diseño mediante la comparación de la varianza empírica del estimador estratificado frente a la varianza del diseño Simple (SI) importada del primer archivo.
+
+```{r}
+# Cargamos los resultados de la simulación del Muestreo Simple
+load("sim_si.RData")
+
+var_mas <- var(totales_si)
+var_estrat <- var(totales_estrat)
+deff <- var_estrat / var_mas
+
+cat("Varianza MAS:", var_mas, "\n")
+cat("Varianza Estratificado:", var_estrat, "\n")
+cat("Efecto de Diseño (Deff):", deff, "\n")
+```
+
+## Visualización de las Distribuciones Empíricas
+
+A continuación, se presenta la comparación gráfica de las densidades empíricas de ambos estimadores frente al total poblacional real.
+
+```{r}
+resultados <- data.frame(
+  Diseno = rep(c("MAS", "Estratificado"), each = R),
+  Estimacion = c(totales_si, totales_estrat)
+)
+
+ggplot(resultados, aes(x = Estimacion, fill = Diseno)) +
+  geom_density(alpha = 0.4) +
+  geom_vline(xintercept = t, linetype = "dashed", color = "darkred", linewidth = 1) +
+  labs(
+    title = "Comparación de Diseños: Distribución Empírica del Estimador",
+    subtitle = paste("Variable de estratificación: Actividad Económica (POBPCOAC) | Deff =", round(deff, 4)),
+    x = "Total Estimado de Asalariados Privados",
+    y = "Densidad"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    axis.title = element_text(face = "bold")
+  )
+```
+
+```{r}
+alpha <- 0.05
+
+# 1. Intervalo de Confianza Empírico (Percentiles)
+ic_estrat_empirico <- quantile(totales_estrat, probs = c(alpha / 2, 1 - alpha / 2))
+
+# 2. Intervalo de Confianza Asumiendo Normalidad
+media_estrat <- mean(totales_estrat)
+sd_estrat    <- sd(totales_estrat)
+z_val        <- qnorm(1 - alpha / 2)
+
+ic_estrat_normal_inf <- media_estrat - z_val * sd_estrat
+ic_estrat_normal_sup <- media_estrat + z_val * sd_estrat
+
+# Mostrar resultados por consola
+cat("--- Intervalo de Confianza Empírico (Estratificado) ---\n",
+    "IC 95%: [", ic_estrat_empirico[1], ", ", ic_estrat_empirico[2], "]\n\n",
+    "--- Intervalo Asumiendo Normalidad (Estratificado) ---\n",
+    "IC 95%: [", ic_estrat_normal_inf, ", ", ic_estrat_normal_sup, "]\n\n")
+```
