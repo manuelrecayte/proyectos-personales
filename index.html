@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-    <a href="./en/index.html">English</a>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,6 +36,29 @@
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .lang-switch {
+            position: absolute;
+            top: 1.5rem;
+            right: 2.5rem;
+            font-weight: 600;
+        }
+
+        .lang-switch a {
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .lang-switch a:hover {
+            background: var(--accent);
+            color: white;
         }
 
         header {
@@ -194,7 +216,7 @@
                 padding: 0;
                 max-width: 100%;
             }
-            .btn-print {
+            .btn-print, .lang-switch {
                 display: none;
             }
             .project-card {
@@ -207,6 +229,10 @@
 <body>
 
 <div class="container">
+    <div class="lang-switch">
+        <a href="./en/index.html">🌐 English</a>
+    </div>
+
     <header>
         <h1>Manuel Recayte</h1>
         <div class="subtitle">Estudiante de Licenciatura en Estadística</div>
@@ -247,7 +273,7 @@
             <div class="item-sub">UDELAR</div>
             <ul>
                 <li>Dictado de clases prácticas para asignaturas del área de matemática.</li>
-                <li>Acompañamiento pedagógico y resolución de dudas técnicas para estudiantes universatarios.</li>
+                <li>Acompañamiento pedagógico y resolución de dudas técnicas para estudiantes universitarios.</li>
             </ul>
         </div>
 
