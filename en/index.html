@@ -1,1 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuel Recayte - CV & Portafolio</title>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --accent: #2563eb;
+            --text: #334155;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-info a, .contact-info span {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent);
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            padding-bottom: 0.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 0.8rem;
+        }
+
+        .item {
+            margin-bottom: 1.2rem;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .item-sub {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        ul {
+            list-style-type: square;
+            margin-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-card {
+            background: var(--bg);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .project-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.2rem;
+            background: var(--bg);
+            transition: transform 0.2s;
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        .btn-print {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Estilos para guardar en PDF mediante Ctrl+P */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .btn-print {
+                display: none;
+            }
+            .project-card {
+                background: white;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Manuel Recayte</h1>
+        <div class="subtitle">Estudiante de Licenciatura en Estadística</div>
+        <div class="contact-info">
+            <span>📍 Montevideo, Uruguay</span>
+            <span>📞 (597) 95100155</span>
+            <a href="mailto:manuelrecayte@gmail.com">✉️ manuelrecayte@gmail.com</a>
+            <a href="https://github.com/manuelrecayte" target="_blank">🌐 github.com/manuelrecayte</a>
+        </div>
+    </header>
+
+    <section>
+        <h2>Perfil Profesional</h2>
+        <p>
+            Estudiante de tercer año de la Licenciatura en Estadística con sólidas bases analíticas, de programación y modelado estadístico (descriptivo y predictivo). Cuento con experiencia académica en la docencia de matemáticas y práctica laboral en atención al público y gestión de sistemas de información dentro del sector público. Me caracterizo por un enfoque proactivo, alto compromiso y excelente capacidad de trabajo en equipo.
+        </p>
+        <p><strong>Disponibilidad:</strong> Full Time</p>
+    </section>
+
+    <section>
+        <h2>Formación Académica</h2>
+        <div class="item">
+            <div class="item-header">
+                <span>Licenciatura en Estadística</span>
+                <span>2024 — Presente</span>
+            </div>
+            <div class="item-sub">Universidad de la República (UDELAR) — 3.ᵉʳ Año</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Experiencia Laboral</h2>
+        
+        <div class="item">
+            <div class="item-header">
+                <span>Tutor entre Pares</span>
+            </div>
+            <div class="item-sub">UDELAR</div>
+            <ul>
+                <li>Dictado de clases prácticas para asignaturas del área de matemática.</li>
+                <li>Acompañamiento pedagógico y resolución de dudas técnicas para estudiantes universatarios.</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <span>Pasante en Gestión de Relacionamiento Fiscal</span>
+            </div>
+            <div class="item-sub">Servicio de Gestión de Contribuyentes — Intendencia de Montevideo (UDELAR)</div>
+            <ul>
+                <li>Atención al público y resolución de consultas sobre tasas, tributos y convenios de pago.</li>
+                <li>Manejo de sistemas informáticos municipales, certificados (CUM, CUD, Gravámenes) y Sistema Electrónico de Expedientes.</li>
+                <li>Redacción de notas administrativas y asesoramiento sobre juicios o clearing de informes.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Habilidades Técnicas e Idiomas</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <strong>Lenguajes de Programación:</strong>
+                <p>R, Python, Pascal</p>
+            </div>
+            <div class="skill-card">
+                <strong>Bases de Datos & Herramientas:</strong>
+                <p>SQL, Microsoft Excel</p>
+            </div>
+            <div class="skill-card">
+                <strong>Idiomas:</strong>
+                <p>Inglés B2 (Cambridge English) — Preparando nivel C2</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Proyectos Personales & Trabajos</h2>
+        <p>Puedes explorar el código fuente e implementación de mis proyectos directamente en mi repositorio:</p>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Proyecto Muestreo</h3>
+                <p>Análisis y diseños muestrales (Bernoulli, Estratificado, Dos Etapas) implementados en R y RMarkdown.</p>
+                <a href="https://github.com/manuelrecayte/proyectos-personales/tree/main/proyecto-muestreo" target="_blank" class="project-link">Ver repositorio en GitHub →</a>
+            </div>
+            <div class="project-card">
+                <h3>Proyecto Modelado</h3>
+                <p>Modelos predictivos y análisis estadístico aplicados a conjuntos de datos de estudio.</p>
+                <a href="https://github.com/manuelrecayte/proyectos-personales/tree/main/proyecto-modelado" target="_blank" class="project-link">Ver repositorio en GitHub →</a>
+            </div>
+        </div>
+    </section>
+
+    <button class="btn-print" onclick="window.print()">📄 Guardar como PDF / Imprimir</button>
+</div>
+
+</body>
+</html>
