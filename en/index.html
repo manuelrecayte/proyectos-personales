@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manuel Recayte - CV & Portafolio</title>
+    <title>Manuel Recayte - Resume & Portfolio</title>
     <style>
         :root {
             --primary: #1e293b;
@@ -36,6 +36,29 @@
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .lang-switch {
+            position: absolute;
+            top: 1.5rem;
+            right: 2.5rem;
+            font-weight: 600;
+        }
+
+        .lang-switch a {
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .lang-switch a:hover {
+            background: var(--accent);
+            color: white;
         }
 
         header {
@@ -181,7 +204,6 @@
             cursor: pointer;
         }
 
-        /* Estilos para guardar en PDF mediante Ctrl+P */
         @media print {
             body {
                 background: white;
@@ -193,7 +215,7 @@
                 padding: 0;
                 max-width: 100%;
             }
-            .btn-print {
+            .btn-print, .lang-switch {
                 display: none;
             }
             .project-card {
@@ -206,9 +228,13 @@
 <body>
 
 <div class="container">
+    <div class="lang-switch">
+        <a href="../index.html">🌐 Español</a>
+    </div>
+
     <header>
         <h1>Manuel Recayte</h1>
-        <div class="subtitle">Estudiante de Licenciatura en Estadística</div>
+        <div class="subtitle">B.S. in Statistics Student</div>
         <div class="contact-info">
             <span>📍 Montevideo, Uruguay</span>
             <span>📞 (597) 95100155</span>
@@ -218,87 +244,87 @@
     </header>
 
     <section>
-        <h2>Perfil Profesional</h2>
+        <h2>Professional Summary</h2>
         <p>
-            Estudiante de tercer año de la Licenciatura en Estadística con sólidas bases analíticas, de programación y modelado estadístico (descriptivo y predictivo). Cuento con experiencia académica en la docencia de matemáticas y práctica laboral en atención al público y gestión de sistemas de información dentro del sector público. Me caracterizo por un enfoque proactivo, alto compromiso y excelente capacidad de trabajo en equipo.
+            Third-year Bachelor of Science in Statistics student with strong analytical skills, programming expertise, and solid knowledge in statistical modeling (descriptive and predictive). Experienced in academic tutoring for mathematics, as well as public service and information systems management in the public sector. Proactive worker with high commitment and strong teamwork skills.
         </p>
-        <p><strong>Disponibilidad:</strong> Full Time</p>
+        <p><strong>Availability:</strong> Full Time</p>
     </section>
 
     <section>
-        <h2>Formación Académica</h2>
+        <h2>Education</h2>
         <div class="item">
             <div class="item-header">
-                <span>Licenciatura en Estadística</span>
-                <span>2024 — Presente</span>
+                <span>B.S. in Statistics</span>
+                <span>2024 — Present</span>
             </div>
-            <div class="item-sub">Universidad de la República (UDELAR) — 3.ᵉʳ Año</div>
+            <div class="item-sub">Universidad de la República (UDELAR) — 3rd Year</div>
         </div>
     </section>
 
     <section>
-        <h2>Experiencia Laboral</h2>
+        <h2>Work Experience</h2>
         
         <div class="item">
             <div class="item-header">
-                <span>Tutor entre Pares</span>
+                <span>Peer Tutor</span>
             </div>
             <div class="item-sub">UDELAR</div>
             <ul>
-                <li>Dictado de clases prácticas para asignaturas del área de matemática.</li>
-                <li>Acompañamiento pedagógico y resolución de dudas técnicas para estudiantes universatarios.</li>
+                <li>Led practical problem-solving sessions for university mathematics courses.</li>
+                <li>Provided academic guidance and resolved technical questions for undergraduate students.</li>
             </ul>
         </div>
 
         <div class="item">
             <div class="item-header">
-                <span>Pasante en Gestión de Relacionamiento Fiscal</span>
+                <span>Tax Relations Management Intern</span>
             </div>
-            <div class="item-sub">Servicio de Gestión de Contribuyentes — Intendencia de Montevideo (UDELAR)</div>
+            <div class="item-sub">Taxpayer Services Unit — Intendencia de Montevideo (UDELAR)</div>
             <ul>
-                <li>Atención al público y resolución de consultas sobre tasas, tributos y convenios de pago.</li>
-                <li>Manejo de sistemas informáticos municipales, certificados (CUM, CUD, Gravámenes) y Sistema Electrónico de Expedientes.</li>
-                <li>Redacción de notas administrativas y asesoramiento sobre juicios o clearing de informes.</li>
+                <li>Handled public service and resolved customer queries regarding taxes, municipal fees, and payment agreements.</li>
+                <li>Managed municipal information systems, official certificates (CUM, CUD, Liens), and the Electronic Records System.</li>
+                <li>Drafted administrative documents and provided advisory services regarding legal procedures and credit reports.</li>
             </ul>
         </div>
     </section>
 
     <section>
-        <h2>Habilidades Técnicas e Idiomas</h2>
+        <h2>Technical Skills & Languages</h2>
         <div class="skills-grid">
             <div class="skill-card">
-                <strong>Lenguajes de Programación:</strong>
+                <strong>Programming Languages:</strong>
                 <p>R, Python, Pascal</p>
             </div>
             <div class="skill-card">
-                <strong>Bases de Datos & Herramientas:</strong>
+                <strong>Databases & Tools:</strong>
                 <p>SQL, Microsoft Excel</p>
             </div>
             <div class="skill-card">
-                <strong>Idiomas:</strong>
-                <p>Inglés B2 (Cambridge English) — Preparando nivel C2</p>
+                <strong>Languages:</strong>
+                <p>English B2 (Cambridge English) — Preparing C2 level</p>
             </div>
         </div>
     </section>
 
     <section>
-        <h2>Proyectos Personales & Trabajos</h2>
-        <p>Puedes explorar el código fuente e implementación de mis proyectos directamente en mi repositorio:</p>
+        <h2>Personal Projects</h2>
+        <p>You can explore the source code and implementations directly on my repository:</p>
         <div class="projects-grid">
             <div class="project-card">
-                <h3>Proyecto Muestreo</h3>
-                <p>Análisis y diseños muestrales (Bernoulli, Estratificado, Dos Etapas) implementados en R y RMarkdown.</p>
-                <a href="https://github.com/manuelrecayte/proyectos-personales/tree/main/proyecto-muestreo" target="_blank" class="project-link">Ver repositorio en GitHub →</a>
+                <h3>Sampling Project</h3>
+                <p>Analysis and sampling designs (Bernoulli, Stratified, Two-Stage) implemented in R and RMarkdown.</p>
+                <a href="https://github.com/manuelrecayte/proyectos-personales/tree/main/proyecto-muestreo" target="_blank" class="project-link">View GitHub Repository →</a>
             </div>
             <div class="project-card">
-                <h3>Proyecto Modelado</h3>
-                <p>Modelos predictivos y análisis estadístico aplicados a conjuntos de datos de estudio.</p>
-                <a href="https://github.com/manuelrecayte/proyectos-personales/tree/main/proyecto-modelado" target="_blank" class="project-link">Ver repositorio en GitHub →</a>
+                <h3>Statistical Modeling Project</h3>
+                <p>Predictive models and statistical analysis applied to research datasets.</p>
+                <a href="https://github.com/manuelrecayte/proyectos-personales/tree/main/proyecto-modelado" target="_blank" class="project-link">View GitHub Repository →</a>
             </div>
         </div>
     </section>
 
-    <button class="btn-print" onclick="window.print()">📄 Guardar como PDF / Imprimir</button>
+    <button class="btn-print" onclick="window.print()">📄 Save as PDF / Print</button>
 </div>
 
 </body>
