@@ -111,7 +111,7 @@ breusch_pagan(modelo_segun_lasso)
 library(sandwich)
 library(lmtest)
 
-# 2. Volver a testear los coeficientes usando la corrección HC3
+# 2. Volver a testear los coeficientes usando la corrección HC4
 coef.HC4 <- coeftest(modelo_segun_lasso, vcov = vcovHC(modelo_segun_lasso, type = "HC4"))
 
 ```
