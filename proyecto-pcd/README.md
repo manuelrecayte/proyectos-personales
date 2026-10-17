@@ -24,3 +24,7 @@ eso puede resultar en una disminución en la poblacion del animal.
 
 Criaderos: En la actualidad existen criaderos de cangrejos, a los cuales les interesa saber cuando
 realizar la cosecha para maximizar ganancias sin poner en riesgo la sostenibilidad del negocio.
+
+
+## Descripción de los datos
+
