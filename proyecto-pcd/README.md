@@ -30,3 +30,13 @@ realizar la cosecha para maximizar ganancias sin poner en riesgo la sostenibilid
 
 <img width="523" height="319" alt="image" src="https://github.com/user-attachments/assets/3461679c-b948-475c-9781-58c792f699fe" />
 
+Este es el primer análisis descriptivo de los datos. El segundo es luego de haber filtrado los datos por observaciones con valor indeterminado en el sexo. 
+En el trabajo anterior, vimos que los cangrejos con sexo indeterminado son cangrejo, a los que debido a su corta edad no se les puede asignar un sexo. Para este nuevo analisis, ya no nos interesa modelar bien los cangrejos jovenes, asi que estos datos son removidos.
+
+<img width="523" height="315" alt="image" src="https://github.com/user-attachments/assets/02694b14-f09a-4772-84f0-7d4809f1369a" />
+
+Continuando con el análisis descriptivo, gráficos cada variable contra la edad.
+<img width="941" height="437" alt="image" src="https://github.com/user-attachments/assets/4795bea2-4ea2-40ee-9463-70637b762e8d" />
+<img width="338" height="217" alt="image" src="https://github.com/user-attachments/assets/38bfe7f9-f2f4-4688-90a8-569e71350da1" />
+
+
