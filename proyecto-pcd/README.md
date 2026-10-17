@@ -45,5 +45,5 @@ Para obtener un analisis descriptivo completo de las variables, observamos la co
 
 Como se puedo observar en los graficos de cada variable contra la edad, claramente hay dos datos atipicos de Height, probablemente provocados por un error en la medición, para no alterar los resultados por solo dos datos, se decidió removerlos. Tambien es apreciable la alta correlación entre muchas de las variables.
 
-<img width="460" height="315" alt="image" src="https://github.com/user-attachments/assets/1cb18dd9-5b22-405d-b7e1-baaa549359e4" /> ![Height vs Age (sin outliers)]
+<img width="460" height="315" alt="image" src="https://github.com/user-attachments/assets/1cb18dd9-5b22-405d-b7e1-baaa549359e4" /> [Height vs Age (sin outliers)]
 
