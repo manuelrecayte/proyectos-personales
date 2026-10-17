@@ -39,4 +39,11 @@ Continuando con el análisis descriptivo, gráficos cada variable contra la edad
 <img width="941" height="437" alt="image" src="https://github.com/user-attachments/assets/4795bea2-4ea2-40ee-9463-70637b762e8d" />
 <img width="338" height="217" alt="image" src="https://github.com/user-attachments/assets/38bfe7f9-f2f4-4688-90a8-569e71350da1" />
 
+Para obtener un analisis descriptivo completo de las variables, observamos la correlacion entre las variables.
+
+<img width="602" height="497" alt="image" src="https://github.com/user-attachments/assets/40bc0fd6-ba12-4bd8-8e02-8d6f22a9d13b" />
+
+Como se puedo observar en los graficos de cada variable contra la edad, claramente hay dos datos atipicos de Height, probablemente provocados por un error en la medición, para no alterar los resultados por solo dos datos, se decidió removerlos. Tambien es apreciable la alta correlación entre muchas de las variables.
+
+<img width="460" height="315" alt="image" src="https://github.com/user-attachments/assets/1cb18dd9-5b22-405d-b7e1-baaa549359e4" /> ![Height vs Age (sin outliers)]
 
