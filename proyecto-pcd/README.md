@@ -83,4 +83,4 @@ El modelo sobreestima los valores reales más bajos al ubicarse por encima de la
 
 # Conclusiones
 
-
+En conclusión, tras aplicar Random Forest para segmentar la población adulta ($\ge 5\text{ oz}$) y utilizar regularización LASSO con validación cruzada ($R^2_{\text{CV}} = 0.3749$), se demostró que las variables morfológicas tradicionales son intrínsecamente insuficientes para predecir la edad en etapas maduras de desarrollo. El análisis de los valores predichos frente a los reales reveló una limitación estructural del modelo lineal: al estancarse el crecimiento físico frente al avance de la edad cronológica, el modelo responde comprimiendo la varianza, lo que genera una sobreestimación en adultos jóvenes y una severa subestimación en ejemplares longevos. Este patrón evidencia que la relación entre la morfología y la edad cambia drásticamente en las distintas etapas de vida, por lo que en futuros estudios se podría evaluar, aun con la limitación en la información disponible, la implementación de un modelo de regresión segmentada o de fases que logre capturar de manera más fiel los quiebres en el crecimiento del cangrejo.  
