@@ -49,7 +49,7 @@ Como se puedo observar en los graficos de cada variable contra la edad, claramen
 
 <img width="460" height="315" alt="image" src="https://github.com/user-attachments/assets/1cb18dd9-5b22-405d-b7e1-baaa549359e4" /> Height vs Age (sin outliers)
 
-## Aplicamos *Random Forest*
+## Metodología: Aplicamos *Random Forest*
 Lo que buscamos es tomar solamente los datos de los cangrejos que dejaron de crecer fisicamente de manera abrupta. Para ello implementamos Random Forest buscando determinar que variable mejor explica el cambio en la edad, para asi, junto con su grafico determinar un umbral arbitrario, que permita discriminar del total de los datos unicamente aquellos que buscamos.
 Luego de aplicar el algoritmo, grafico la importancia de las variables llegando a los siguientes resultados:
 <img width="1041" height="452" alt="image" src="https://github.com/user-attachments/assets/5c2a1fdd-dc14-4f8c-84ff-b55b3dc8dc4c" />
