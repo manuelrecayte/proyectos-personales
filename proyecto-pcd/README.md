@@ -51,4 +51,10 @@ Como se puedo observar en los graficos de cada variable contra la edad, claramen
 Lo que buscamos es tomar solamente los datos de los cangrejos que dejaron de crecer fisicamente de manera abrupta. Para ello implementamos Random Forest buscando determinar que variable mejor explica el cambio en la edad, para asi, junto con su grafico determinar un umbral arbitrario, que permita discriminar del total de los datos unicamente aquellos que buscamos.
 Luego de aplicar el algoritmo, grafico la importancia de las variables llegando a los siguientes resultados:
 <img width="1041" height="452" alt="image" src="https://github.com/user-attachments/assets/5c2a1fdd-dc14-4f8c-84ff-b55b3dc8dc4c" />
-Este gráfico muestra la importancia relativa de las variables, donde las variables de peso resultan ser las más determinantes para las predicciones: Shell_Weight lidera la capacidad predictiva con aproximadamente un 37% de relevancia, seguida por Shucked_Weight (peso desviscerado/carne) con un 25%, mientras que el peso total y el peso de las vísceras tienen un impacto moderado (\sim 10%), las dimensiones físicas como diámetro, altura y longitud aportan de manera menor (5%-7%), y el sexo (Sex_M) resulta prácticamente irrelevante (<1%).   
+Este gráfico muestra la importancia relativa de las variables, donde las variables de peso resultan ser las más determinantes para las predicciones: Shell_Weight lidera la capacidad predictiva con aproximadamente un 37% de relevancia, seguida por Shucked_Weight (peso desviscerado/carne) con un 25%, mientras que el peso total y el peso de las vísceras tienen un impacto moderado (~ 10%), las dimensiones físicas como diámetro, altura y longitud aportan de manera menor (5%-7%), y el sexo (Sex_M) resulta prácticamente irrelevante (<1%).   
+
+Bajo los resultados obtenidos, continuamos mirando el grafico Shell_Weight vs Age para determinar donde es que se da el cambio abrupto en los datos. Tomando la decision arbitraria que se da a partir de los cangrejos con un peso de 5 onzas (140g) o mas.
+
+<img width="696" height="438" alt="image" src="https://github.com/user-attachments/assets/47f1aace-05e0-4e56-82d9-2fc766ea5955" />
+
+Tomando ese umbral particionamos los datos, y ajustamos un modelo para los datos seleccionados.
