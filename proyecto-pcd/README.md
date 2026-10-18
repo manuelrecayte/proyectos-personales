@@ -58,3 +58,10 @@ Bajo los resultados obtenidos, continuamos mirando el grafico Shell_Weight vs Ag
 <img width="696" height="438" alt="image" src="https://github.com/user-attachments/assets/47f1aace-05e0-4e56-82d9-2fc766ea5955" />
 
 Tomando ese umbral particionamos los datos, y ajustamos un modelo para los datos seleccionados.
+<img width="280" height="36" alt="image" src="https://github.com/user-attachments/assets/10c2cb73-4031-48b1-92e8-20dc70d1b6e9" />
+
+## Selección de variables
+A partir de nuestros nuevos datos, procedemos a una nueva selección de variables para nuestro modelo lineal. AL seguir teniendo el problema de alta correlación entre variables, decidimos usar Lasso para seleccionar las variables porque el algoritmo fuerza los coeficientes de las variables redundantes o altamente colineales exactamente a cero, evitando así la peligrosa inflación de la varianza y la inestabilidad de los coeficientes. Usamos Lasso para distintos alfa.
+<img width="260" height="299" alt="image" src="https://github.com/user-attachments/assets/c8a3589a-6479-4754-8656-a7c5daeb29eb" />
+
+
