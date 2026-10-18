@@ -68,3 +68,19 @@ A partir de nuestros nuevos datos, procedemos a una nueva selección de variable
 ## Selección de modelos y validación del rendimiento predictivo
 Para la selección y comparación final de los modelos regularizados con distintos valores del hiperparámetro de mezcla ($\alpha$), se descartó el uso del coeficiente de determinación ($R^2$) calculado sobre el conjunto de entrenamiento. Dado que los modelos penalizados ajustan su complejidad en función de los datos observados, el $R^2$ de entrenamiento exhibe un sesgo optimista y favorece sistemáticamente a aquellos modelos con menor penalización o mayor número de variables retenidas, lo que puede inducir a un problema de sobreajuste.En su lugar, se implementó una estrategia de validación cruzada de K particiones (K-fold cross-validation). Este enfoque evalúa el rendimiento predictivo fuera de muestra de manera rigurosa, simulando cómo se comportaría el modelo ante nuevas observaciones independientes. La selección del modelo definitivo se basó en la maximización del $R^2$ de validación cruzada (equivalente a la minimización del error cuadrático medio de predicción), garantizando así que el modelo elegido posea una óptima capacidad de generalización y refleje una estructura explicativa robusta en lugar de una mera memorización del ruido muestral.
 
+<img width="358" height="201" alt="image" src="https://github.com/user-attachments/assets/dbae4dc2-9d61-4b78-b5e4-bdd9c5d55832" />
+
+Se elegiría el modelo óptimo ($\alpha = 0.003$) porque demuestra un rendimiento predictivo superior y consistente en todos los folds, obteniendo un $R^2$ medio más alto ($0.3749$ frente a $0.3376$). Esto indica que una menor penalización logra capturar mejor la estructura de los datos sin perder capacidad de generalización fuera de muestra.
+
+## Valores Reales vs Predichos
+
+En esta etapa vamos a contrastar de forma visual los valores verdaderos de los datos con los que predijo el modelo óptimo. Para comprobar qué tan cerca están las estimaciones de la realidad, detectar posibles sesgos sistemáticos (como una tendencia a sobreestimar o subestimar ciertos valores) y visualizar la dispersión de los errores.
+
+Recordar que estamos explorando de que manera se podría predecir con mucho mas certeza cangrejos adultos, aunque también es esperable resultados negativos por falta información proporcionando una variable que sea mas de ayuda con con la predicción en adultos.
+
+<img width="461" height="455" alt="image" src="https://github.com/user-attachments/assets/d101e568-fa8f-4ca1-b2db-2595b628e742" />
+El modelo sobreestima los valores reales más bajos al ubicarse por encima de la línea diagonal de referencia roja, y subestima los valores reales más altos al quedar por debajo de ella, con un MSE de 5.80.
+
+# Conclusiones
+
+
