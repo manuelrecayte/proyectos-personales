@@ -7,7 +7,7 @@ Se llevaran a cabo tecnicas de aprendizaje automatico implementando algoritmos d
 
 ## Motivacion
 Como motivacion, decidimos tomar un trabajo anterior realizado en R, al cual habiamos llegado a una conclusión abierta con un problema en ella.  Dicho incoveniente fue que el modelo final al que llegamos, no lograba predecir correctamente la edad de los cangrejos que tuvieron mas de aproximadamente 10 años de edad, subestimandola. Es decir, a partir de la edad en la que empieza a estimar incorrectamente no logra captar diferencias en atributos fisicos dandole a dos cangrejos adultos (uno mayor que el otro) misma edad.   
-Dentro de las recomendaciones a posibles soluciones de dicho problema, fue que seleccionamos una para llevar adelante en este proyecto.
+Por lo que estaremos buscando en este caso buscar aplicar metodologías relacionadas al curso para intentar solucionar el problema, viendo a que conclusiones llegamos en este caso.
 
 ## Contexto 
 Los datos utilizados contienen informacion morfologica acerca de cangrejos.     Fueron obtenidos de *Kaggle* (https://www.kaggle.com/datasets/sidhus/crab-age-prediction). El por qué de de la recoleccion de estos datos fue el siguiente:
@@ -47,3 +47,8 @@ Como se puedo observar en los graficos de cada variable contra la edad, claramen
 
 <img width="460" height="315" alt="image" src="https://github.com/user-attachments/assets/1cb18dd9-5b22-405d-b7e1-baaa549359e4" /> Height vs Age (sin outliers)
 
+## Aplicamos *Random Forest*
+Lo que buscamos es tomar solamente los datos de los cangrejos que dejaron de crecer fisicamente de manera abrupta. Para ello implementamos Random Forest buscando determinar que variable mejor explica el cambio en la edad, para asi, junto con su grafico determinar un umbral arbitrario, que permita discriminar del total de los datos unicamente aquellos que buscamos.
+Luego de aplicar el algoritmo, grafico la importancia de las variables llegando a los siguientes resultados:
+<img width="1041" height="452" alt="image" src="https://github.com/user-attachments/assets/5c2a1fdd-dc14-4f8c-84ff-b55b3dc8dc4c" />
+Este gráfico muestra la importancia relativa de las variables, donde las variables de peso resultan ser las más determinantes para las predicciones: Shell_Weight lidera la capacidad predictiva con aproximadamente un $37\%$ de relevancia, seguida por Shucked_Weight (peso desviscerado/carne) con un $25\%$, mientras que el peso total y el peso de las vísceras tienen un impacto moderado ($\sim 10\%$), las dimensiones físicas como diámetro, altura y longitud aportan de manera menor ($5\%$-$7\%$), y el sexo (Sex_M) resulta prácticamente irrelevante ($<1\%$).   
