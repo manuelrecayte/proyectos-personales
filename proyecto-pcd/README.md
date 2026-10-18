@@ -38,6 +38,8 @@ En el trabajo anterior, vimos que los cangrejos con sexo indeterminado son cangr
 Continuando con el análisis descriptivo, gráficos cada variable contra la edad.
 <img width="941" height="437" alt="image" src="https://github.com/user-attachments/assets/4795bea2-4ea2-40ee-9463-70637b762e8d" />
 <img width="338" height="217" alt="image" src="https://github.com/user-attachments/assets/38bfe7f9-f2f4-4688-90a8-569e71350da1" />
+<img width="687" height="325" alt="image" src="https://github.com/user-attachments/assets/e3a7ffe7-4898-455e-8455-f48213da2741" />
+
 
 Para obtener un analisis descriptivo completo de las variables, observamos la correlacion entre las variables.
 
